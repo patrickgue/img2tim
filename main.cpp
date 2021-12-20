@@ -293,9 +293,9 @@ void ConvertImageToTim(IMGPARAM image, tim::PARAM* tim) {
 			for(short py=0; py<image.h; py++) {
 				for(short px=0; px<image.w; px++) {
 
-					u_char r = ((u_char*)image.pixels)[4*(px+(image.w*py))];
-					u_char g = ((u_char*)image.pixels)[(4*(px+(image.w*py)))+1];
-					u_char b = ((u_char*)image.pixels)[(4*(px+(image.w*py)))+2];
+					unsigned char r = ((unsigned char*)image.pixels)[4*(px+(image.w*py))];
+					unsigned char g = ((unsigned char*)image.pixels)[(4*(px+(image.w*py)))+1];
+					unsigned char b = ((unsigned char*)image.pixels)[(4*(px+(image.w*py)))+2];
 
 					((tim::PIX_RGB24*)tim->imgData)[px+(image.w*py)].r = r;
 					((tim::PIX_RGB24*)tim->imgData)[px+(image.w*py)].g = g;
@@ -316,10 +316,10 @@ void ConvertImageToTim(IMGPARAM image, tim::PARAM* tim) {
 			for(short py=0; py<image.h; py++) {
 				for(short px=0; px<image.w; px++) {
 
-					u_char r = ((u_char*)image.pixels)[4*(px+(image.w*py))];
-					u_char g = ((u_char*)image.pixels)[(4*(px+(image.w*py)))+1];
-					u_char b = ((u_char*)image.pixels)[(4*(px+(image.w*py)))+2];
-					u_char a = ((u_char*)image.pixels)[(4*(px+(image.w*py)))+3];
+					unsigned char r = ((unsigned char*)image.pixels)[4*(px+(image.w*py))];
+					unsigned char g = ((unsigned char*)image.pixels)[(4*(px+(image.w*py)))+1];
+					unsigned char b = ((unsigned char*)image.pixels)[(4*(px+(image.w*py)))+2];
+					unsigned char a = ((unsigned char*)image.pixels)[(4*(px+(image.w*py)))+3];
 
 					((tim::PIX_RGB5*)tim->imgData)[px+(image.w*py)].r = r/8;
 					((tim::PIX_RGB5*)tim->imgData)[px+(image.w*py)].g = g/8;
@@ -406,9 +406,9 @@ void ConvertImageToTim(IMGPARAM image, tim::PARAM* tim) {
 
         for(short c=0; c<256; c++) {
 
-			u_char r = ((RGBQUAD*)image.colors)[c].rgbRed;
-			u_char g = ((RGBQUAD*)image.colors)[c].rgbGreen;
-			u_char b = ((RGBQUAD*)image.colors)[c].rgbBlue;
+			unsigned char r = ((RGBQUAD*)image.colors)[c].rgbRed;
+			unsigned char g = ((RGBQUAD*)image.colors)[c].rgbGreen;
+			unsigned char b = ((RGBQUAD*)image.colors)[c].rgbBlue;
 
 			if (param::TransCol == -1) {
 				if ((param::TransColR == r) && (param::TransColG == g) && (param::TransColB == b)) {
@@ -455,7 +455,7 @@ void ConvertImageToTim(IMGPARAM image, tim::PARAM* tim) {
 
 		for(short py=0; py<image.h; py++) {
 
-			memcpy(&((u_char*)tim->imgData)[image.w*py], &((u_char*)image.pixels)[image.w*py], image.w);
+			memcpy(&((unsigned char*)tim->imgData)[image.w*py], &((unsigned char*)image.pixels)[image.w*py], image.w);
 
 		}
 
@@ -474,9 +474,9 @@ void ConvertImageToTim(IMGPARAM image, tim::PARAM* tim) {
 
         for(short c=0; c<16; c++) {
 
-			u_char r = ((RGBQUAD*)image.colors)[c].rgbRed;
-			u_char g = ((RGBQUAD*)image.colors)[c].rgbGreen;
-			u_char b = ((RGBQUAD*)image.colors)[c].rgbBlue;
+			unsigned char r = ((RGBQUAD*)image.colors)[c].rgbRed;
+			unsigned char g = ((RGBQUAD*)image.colors)[c].rgbGreen;
+			unsigned char b = ((RGBQUAD*)image.colors)[c].rgbBlue;
 
 			if (param::TransCol == -1) {
 				if ((param::TransColR == r) && (param::TransColG == g) && (param::TransColB == b)) {
@@ -525,8 +525,8 @@ void ConvertImageToTim(IMGPARAM image, tim::PARAM* tim) {
 
 			for(short px=0; px<image.w/2; px++) {
 
-				u_char pix = ((u_char*)image.pixels)[px+((image.w/2)*py)];
-				((u_char*)tim->imgData)[px+((image.w/2)*py)] = ((pix&0xf)<<4)|((pix>>4)&0xf);
+				unsigned char pix = ((unsigned char*)image.pixels)[px+((image.w/2)*py)];
+				((unsigned char*)tim->imgData)[px+((image.w/2)*py)] = ((pix&0xf)<<4)|((pix>>4)&0xf);
 
 			}
 
@@ -544,7 +544,7 @@ void ConvertImageToTim(IMGPARAM image, tim::PARAM* tim) {
 
 int SimpleQuantize(tim::PARAM* tim, int bitDepth) {
 
-    u_short			colTable[256] = { 0 };
+    unsigned short			colTable[256] = { 0 };
 	int				diffColors = 0;
 	bool			newCol = true;
 
@@ -563,7 +563,7 @@ int SimpleQuantize(tim::PARAM* tim, int bitDepth) {
     for(int py=0; py<tim->imgHeight; py++) {
 		for(int px=0; px<tim->imgWidth; px++) {
 
-			u_short	pix = ((u_short*)tim->imgData)[px+(tim->imgWidth*py)];
+			unsigned short	pix = ((unsigned short*)tim->imgData)[px+(tim->imgWidth*py)];
 
 			for(short c=0; c<diffColors; c++) {
 
@@ -608,7 +608,7 @@ int SimpleQuantize(tim::PARAM* tim, int bitDepth) {
 		}
     }
 
-    u_short* srcImage = (u_short*)tim->imgData;
+    unsigned short* srcImage = (unsigned short*)tim->imgData;
 
     if (bitDepth == 8) {
 
@@ -617,7 +617,7 @@ int SimpleQuantize(tim::PARAM* tim, int bitDepth) {
 		for(int py=0; py<tim->imgHeight; py++) {
 			for(int px=0; px<tim->imgWidth; px++) {
 
-				u_short	pix = srcImage[px+(tim->imgWidth*py)];
+				unsigned short	pix = srcImage[px+(tim->imgWidth*py)];
 				short index;
 
 				for(index=0; index<diffColors; index++) {
@@ -628,7 +628,7 @@ int SimpleQuantize(tim::PARAM* tim, int bitDepth) {
 				}
 
 				if (index < diffColors) {
-					((u_char*)tim->imgData)[px+(tim->imgWidth*py)] = index;
+					((unsigned char*)tim->imgData)[px+(tim->imgWidth*py)] = index;
 				}
 
 			}
@@ -642,7 +642,7 @@ int SimpleQuantize(tim::PARAM* tim, int bitDepth) {
 		for(int py=0; py<tim->imgHeight; py++) {
 			for(int px=0; px<tim->imgWidth; px++) {
 
-				u_short	pix = srcImage[px+(tim->imgWidth*py)];
+				unsigned short	pix = srcImage[px+(tim->imgWidth*py)];
 				short index;
 
 				for(index=0; index<diffColors; index++) {
@@ -655,9 +655,9 @@ int SimpleQuantize(tim::PARAM* tim, int bitDepth) {
 				if (index < diffColors) {
 
 					if ((px%2) == 0) {
-						((u_char*)tim->imgData)[(px/2)+((tim->imgWidth/2)*py)] = index;
+						((unsigned char*)tim->imgData)[(px/2)+((tim->imgWidth/2)*py)] = index;
 					} else {
-						((u_char*)tim->imgData)[(px/2)+((tim->imgWidth/2)*py)] |= index<<4;
+						((unsigned char*)tim->imgData)[(px/2)+((tim->imgWidth/2)*py)] |= index<<4;
 					}
 
 
@@ -778,12 +778,12 @@ int LoadImagePixels(const char* fileName, IMGPARAM* image, bool makeRGBA) {
         for(short py=0; py<image->h; py++) {
 
 			void* pixels = FreeImage_GetScanLine(srcImage, (image->h-py)-1);
-			memcpy(&((u_int*)image->pixels)[image->w*py], pixels, 4*image->w);
+			memcpy(&((unsigned int*)image->pixels)[image->w*py], pixels, 4*image->w);
 
 			for(short p=0; p<image->w; p++) {
 
-				u_char* pix = (u_char*)&((u_int*)image->pixels)[ p+(image->w*py) ];
-				u_char	t;
+				unsigned char* pix = (unsigned char*)&((unsigned int*)image->pixels)[ p+(image->w*py) ];
+				unsigned char	t;
 
 				t = pix[0];
 				pix[0] = pix[2];
@@ -810,7 +810,7 @@ int LoadImagePixels(const char* fileName, IMGPARAM* image, bool makeRGBA) {
 		for(short py=0; py<image->h; py++) {
 
 			void* pixels = FreeImage_GetScanLine(srcImage, (image->h-py)-1);
-			memcpy(&((u_char*)image->pixels)[image->w*py], pixels, image->w);
+			memcpy(&((unsigned char*)image->pixels)[image->w*py], pixels, image->w);
 
         }
 
@@ -831,7 +831,7 @@ int LoadImagePixels(const char* fileName, IMGPARAM* image, bool makeRGBA) {
 		for(short py=0; py<image->h; py++) {
 
 			void* pixels = FreeImage_GetScanLine(srcImage, (image->h-py)-1);
-			memcpy(&((u_char*)image->pixels)[(image->w/2)*py], pixels, image->w/2);
+			memcpy(&((unsigned char*)image->pixels)[(image->w/2)*py], pixels, image->w/2);
 
         }
 

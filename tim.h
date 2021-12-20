@@ -20,16 +20,16 @@ namespace tim {
 
 		// ID sub-struct
         struct HEADER_ID {
-            u_int id:8;     // Always 0x10
-            u_int ver:8;    // Always 0
-            u_int pad:16;   // Useless padding
+            unsigned int id:8;     // Always 0x10
+            unsigned int ver:8;    // Always 0
+            unsigned int pad:16;   // Useless padding
         } id;
 
 		// Flags sub-struct
         struct HEADER_FLAGS {
-            u_int pmode:3;  // Pixel mode (0: 4-bit, 1: 8-bit, 2:16-bit, 3:24-bit)
-            u_int clut:1;
-            u_int pad:24;
+            unsigned int pmode:3;  // Pixel mode (0: 4-bit, 1: 8-bit, 2:16-bit, 3:24-bit)
+            unsigned int clut:1;
+            unsigned int pad:24;
         } flags;
 
     } HEADER;
@@ -37,17 +37,17 @@ namespace tim {
 
 	// CLUT header struct
     typedef struct {
-        u_int len;
-        u_short cx,cy;
-        u_short cw,ch;
+        unsigned int len;
+        unsigned short cx,cy;
+        unsigned short cw,ch;
     } CLUT_HEAD;
 
 
 	// Image data block header
     typedef struct {
-        u_int len;
-        u_short x,y;
-        u_short w,h;
+        unsigned int len;
+        unsigned short x,y;
+        unsigned short w,h;
     } IMG_HEAD;
 
 
@@ -56,27 +56,27 @@ namespace tim {
         int format;
         // Image data params
         void *imgData;
-        u_short imgWidth,imgHeight;
-        u_short imgXoffs,imgYoffs;
+        unsigned short imgWidth,imgHeight;
+        unsigned short imgXoffs,imgYoffs;
         // CLUT data params
         void *clutData;
-        u_short clutWidth,clutHeight;
-        u_short clutXoffs,clutYoffs;
+        unsigned short clutWidth,clutHeight;
+        unsigned short clutXoffs,clutYoffs;
     } PARAM;
 
 
 	// RGB5A1 pixel format struct
 	typedef struct {
-        u_short r:5;
-        u_short g:5;
-        u_short b:5;
-        u_short i:1;
+        unsigned short r:5;
+        unsigned short g:5;
+        unsigned short b:5;
+        unsigned short i:1;
     } PIX_RGB5;
 
     typedef struct {
-		u_char	r;
-		u_char	g;
-		u_char	b;
+		unsigned char	r;
+		unsigned char	g;
+		unsigned char	b;
     } PIX_RGB24;
 
 
